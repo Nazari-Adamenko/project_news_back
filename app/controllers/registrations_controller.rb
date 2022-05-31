@@ -1,6 +1,6 @@
 class Users::RegistrationsController < Devise::RegistrationsController
   respond_to :json
-
+  _registrations_message = ["Signed up sucessfully.", "Something went wrong."]
   private
 
   def respond_with(resource, _opts = {})
@@ -10,10 +10,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def register_success
-    render json: { message: 'Signed up sucessfully.' }
+    render json: { message: :_registrations_message[0] }
   end
 
   def register_failed
-    render json: { message: "Something went wrong." }
+    render json: { message: :_registrations_message[1] }
   end
 end
