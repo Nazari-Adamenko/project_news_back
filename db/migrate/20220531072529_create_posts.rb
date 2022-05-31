@@ -5,7 +5,7 @@ class CreatePosts < ActiveRecord::Migration[7.0]
       t.text :tags
       t.string :user_id
       t.text :image
-      t.boolean :is_delited
+      t.boolean :is_deleted, null: false, :default => "false"
       t.text :content
 
       t.timestamps

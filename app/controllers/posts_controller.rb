@@ -3,15 +3,11 @@ class PostsController < ApplicationController
 
   # GET /posts
   def index
-    @posts = Post.all
+    @posts = Post.where('is_deleted = false')
 
     render json: @posts
   end
 
-  # GET /posts/1
-  def show
-    render json: @post
-  end
 
   # POST /posts
   def create
@@ -19,15 +15,6 @@ class PostsController < ApplicationController
 
     if @post.save
       render json: @post, status: :created, location: @post
-    else
-      render json: @post.errors, status: :unprocessable_entity
-    end
-  end
-
-  # PATCH/PUT /posts/1
-  def update
-    if @post.update(post_params)
-      render json: @post
     else
       render json: @post.errors, status: :unprocessable_entity
     end
