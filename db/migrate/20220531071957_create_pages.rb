@@ -1,12 +1,12 @@
-class CreateNews < ActiveRecord::Migration[7.0]
+class CreatePages < ActiveRecord::Migration[7.0]
   def change
-    create_table :news do |t|
+    create_table :pages do |t|
       t.text :title
       t.text :tags
-      t.text :image
       t.string :user_id
-      t.text :content
+      t.text :image
       t.boolean :is_delited
+      t.text :content
 
       t.timestamps
     end

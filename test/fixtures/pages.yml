@@ -3,15 +3,15 @@
 one:
   title: MyText
   tags: MyText
-  image: MyText
   user_id: MyString
-  content: MyText
+  image: MyText
   is_delited: false
+  content: MyText
 
 two:
   title: MyText
   tags: MyText
-  image: MyText
   user_id: MyString
-  content: MyText
+  image: MyText
   is_delited: false
+  content: MyText
