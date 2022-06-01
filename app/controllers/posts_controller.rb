@@ -8,7 +8,6 @@ class PostsController < ApplicationController
     render json: posts
   end
 
-
   # POST /posts
   def create
     post = Post.new(post_params)

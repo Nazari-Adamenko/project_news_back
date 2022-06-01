@@ -1,25 +1,28 @@
 class Users :: SessionsController < Devise :: SessionsController
   response_to :json 
-  _sessions_message = ["You are logged in.", "You are logged out.", "Hmm nothing happened."]
+  :response_message = "You are logged in."
+  :success_message = "You are logged out."
+  :failure_message = "Hmm nothing happened."
+
 private
 
 def response_with ( resource , _opts = {}) 
-  render json: { message: :_sessions_message[0] }, status: :ok 
+  render json: { message: :response_message }, status: :ok 
 end 
 
 def response_to_on_destroy 
   if log_out_success then 
-    return if current_user 
+    current_user 
     else
-    return log_out_failure
+    log_out_failure
   end 
 end 
 
 def log_out_success 
-  render json: { message: :_sessions_message[1]}, status: :ok 
+  render json: { message: :success_message}, status: :ok 
 end 
 
 def log_out_failure 
-  renderjson: {message: :_sessions_message[2]}, status: :unauthorized 
-end 
+    render json: {message: :failure_message}, status: :unauthorized 
+  end 
 end
