@@ -1,13 +1,12 @@
 class Users :: SessionsController < Devise :: SessionsController
+  require 'constant_message'
+  
   response_to :json 
-  :response_message = "You are logged in."
-  :success_message = "You are logged out."
-  :failure_message = "Hmm nothing happened."
 
 private
 
 def response_with ( resource , _opts = {}) 
-  render json: { message: :response_message }, status: :ok 
+  render json: { message: RESPONSE_MESSAGE_SESSION }, status: :ok 
 end 
 
 def response_to_on_destroy 
@@ -19,10 +18,10 @@ def response_to_on_destroy
 end 
 
 def log_out_success 
-  render json: { message: :success_message}, status: :ok 
+  render json: { message: SUCCESS_MESSAGE_SESSION}, status: :ok 
 end 
 
 def log_out_failure 
-    render json: {message: :failure_message}, status: :unauthorized 
+    render json: {message: FAILURE_MESSAGE_SESSION}, status: :unauthorized 
   end 
 end

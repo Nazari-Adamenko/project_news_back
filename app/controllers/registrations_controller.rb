@@ -1,7 +1,7 @@
 class Users::RegistrationsController < Devise::RegistrationsController
+  require 'constant_message'
+  
   respond_to :json
-  :success_message = "Signed up sucessfully."
-  :failed_message = "Something went wrong."
 
   private
 
@@ -13,10 +13,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
   end
 
   def register_success
-    render json: { message: :success_message }
+    render json: { message: SUCCESS_MESSAGE_REGISTRATION }
   end
 
   def register_failed
-    render json: { message: :failed_message }
+    render json: { message: FAILED_MESSAGE_REGISTRATION }
   end
 end
