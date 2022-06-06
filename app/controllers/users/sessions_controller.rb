@@ -1,6 +1,6 @@
-class Users :: SessionsController < Devise :: SessionsController
+class Users::SessionsController < Devise::SessionsController
   
-  response_to :json 
+  respond_to :json 
 
 private
 
@@ -10,7 +10,7 @@ end
 
 def response_to_on_destroy 
   if log_out_success then 
-    current_user 
+    current_user
     else
     log_out_failure
   end 

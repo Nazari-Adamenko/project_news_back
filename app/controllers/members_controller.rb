@@ -1,5 +1,4 @@
 class MembersController < ApplicationController
-  # require ConstantsMessage
 
   before_action :authenticate_user!
   
