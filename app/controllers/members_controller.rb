@@ -1,9 +1,9 @@
 class MembersController < ApplicationController
-  require 'constant_message'
+  # require ConstantsMessage
 
   before_action :authenticate_user!
   
   def show
-    render json: { message: MESSAGE_MEMBER }
+    render json: { message: ConstantMessage::MESSAGE_MEMBER }
   end
 end
