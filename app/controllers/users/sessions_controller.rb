@@ -4,15 +4,15 @@ class Users::SessionsController < Devise::SessionsController
 
 private
 
-def response_with ( resource , _opts = {}) 
-  render json: { message: ConstantMessage::RESPONSE_MESSAGE_SESSION }, status: :ok 
+def respond_with ( resource , _opts = {})
+  if current_user then render json: { message: current_user }, status: :ok
+  else render json: { message: ConstantMessage::FAILURE_MESSAGE_SESION_LOGIN }, status: :unauthorized
+  end
 end 
 
-def response_to_on_destroy 
-  if log_out_success then 
-    current_user
-    else
-    log_out_failure
+def respond_to_on_destroy 
+  if current_user  then log_out_success
+  else log_out_failure
   end 
 end 
 
