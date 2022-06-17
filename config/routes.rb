@@ -7,6 +7,8 @@ Rails.application.routes.draw do
                 registrations: 'users/registrations'
             }
   get '/member-data', to: 'members#show'
+  get '/users/:id', to: 'users#show'
+  get '/users_data', to: 'users#get_user_posts'
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Defines the root path route ("/")

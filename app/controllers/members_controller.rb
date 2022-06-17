@@ -3,6 +3,6 @@ class MembersController < ApplicationController
   before_action :authenticate_user!
   
   def show
-    render json: { message: ConstantMessage::MESSAGE_MEMBER }
+    render json: current_user
   end
 end

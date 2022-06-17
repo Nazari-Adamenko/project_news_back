@@ -8,7 +8,7 @@ def respond_with ( resource , _opts = {})
   if current_user then render json: { message: current_user }, status: :ok
   else render json: { message: ConstantMessage::FAILURE_MESSAGE_SESION_LOGIN }, status: :unauthorized
   end
-end 
+end
 
 def respond_to_on_destroy 
   if current_user  then log_out_success
