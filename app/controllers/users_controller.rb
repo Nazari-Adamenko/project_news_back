@@ -5,10 +5,6 @@ class UsersController < ApplicationController
     render json: @user.to_json(include: :posts)
   end
 
-  def get_user_posts
-    render json: current_user.post
-  end
-
   private
 
   def set_user
