@@ -1,11 +1,12 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[ show update destroy ]
+  before_action :set_post, only: %i[show update destroy]
 
   # GET /posts
   def index
-    posts = Post.where(is_deleted = false)
-
-    render json: posts
+    Post.where(is_deleted = false).size() == 0 ?
+    posts = ConstantMessage::NOT_POSTS : 
+    posts = Post.where(is_deleted = false).order(created_at: :desc)
+    render json: posts.to_json(include: :user)
   end
 
   # POST /posts
@@ -32,6 +33,6 @@ class PostsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def post_params
-      params.require(:post).permit(:title, :tags, :user_id, :image, :is_delited, :content)
+      params.require(:post).permit(:title, :tags, :user_id, :image, :is_delited, :content, :user_name)
     end
 end
