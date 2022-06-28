@@ -1,20 +1,21 @@
 class PostsController < ApplicationController
-  before_action :set_post, only: %i[show update destroy]
+  before_action :set_post, :authenticate_user!, only: %i[show update destroy]
 
   # GET /posts
   def index
-    Post.where(is_deleted = false).size() == 0 ?
-    posts = ConstantMessage::NOT_POSTS : 
-    posts = Post.where(is_deleted = false).order(created_at: :desc)
+    posts = if Post.where(is_deleted = false).size == 0
+              nil
+            else
+              Post.where(is_deleted = false).order(created_at: :desc)
+            end
     render json: posts.to_json(include: :user)
   end
 
   # POST /posts
   def create
-    post = Post.new(post_params)
-
+    post = Post.new(post_params.merge(:user_id => current_user.id))
     if post.save
-      render json: post, status: :created, location: post
+      render json: serialize(post), status: :created, location: post
     else
       render json: post.errors, status: :unprocessable_entity
     end
@@ -26,13 +27,18 @@ class PostsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_post
-      post = Post.find(params[:id])
-    end
 
-    # Only allow a list of trusted parameters through.
-    def post_params
-      params.require(:post).permit(:title, :tags, :user_id, :image, :is_delited, :content, :user_name)
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_post
+    post = Post.find(params[:id])
+  end
+
+  # Only allow a list of trusted parameters through.
+  def post_params
+    params.permit(:title, :tags, :content, :image)
+  end
+
+  def serialize(post)
+    post.attributes.merge({ name: post.user.name, image: { url: post.image.url } })
+  end
 end
