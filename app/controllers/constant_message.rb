@@ -8,5 +8,7 @@ module ConstantMessage
   FAILURE_MESSAGE_SESSION = "Hmm nothing happened."
 
   MESSAGE_MEMBER = "If you see this, you're in!"
+
+  NOT_POSTS = "Not posts"
 end
 
