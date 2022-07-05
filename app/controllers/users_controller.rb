@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: %i[ show ]
+  before_action :set_user, only: %i[show update]
 
   def show
     render json: @user.to_json(include: :posts)
@@ -8,7 +8,7 @@ class UsersController < ApplicationController
   # PATCH/ /user/1
   def update
     if @user.update(user_params)
-      render json: @user
+      render json: @user.to_json(include: :posts)
     else
       render json: @user.errors, status: :unprocessable_entity
     end
@@ -21,6 +21,6 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:name, :avatar)
+    params.permit(:name, :avatar)
   end
 end
